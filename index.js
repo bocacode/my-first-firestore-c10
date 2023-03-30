@@ -55,7 +55,14 @@ db.collection('products').doc('Aw6bH9bExqSbe7Kr8LJ4').get()
 db.collection('products').get()
   .then(collection => {
     const productList = collection.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-    console.table(productList);
+    console.log(productList);
   })
   .catch(console.log);
+  
+// We can rewrite this using async:
+  
+const collection = await db.collection('products').get()
+  .catch(err => console.log(err));
+const productList = collection.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+console.log(productList);
 
